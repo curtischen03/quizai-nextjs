@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 QuizAI
 
-## Getting Started
+**QuizAI** is an intelligent, full-stack web application that harnesses the power of **Google’s Gemini AI** to generate personalized quizzes in real time. Whether you're testing your fandom knowledge or learning a new subject, QuizAI creates a seamless and interactive quiz experience tailored to your interests.
 
-First, run the development server:
+![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lY8MTFlNfO0/0.jpg)
+
+## ✨ Key Features
+
+- 🔮 **AI-Powered Quiz Generation**: Uses Google Gemini to generate unique, context-aware questions based on any topic.
+- 📊 **Detailed Results Analysis**: Visual breakdown of scores and correct/incorrect answers.
+- 📱 **Fully Responsive Design**: Built with Bootstrap for optimal performance across devices.
+
+## 🛠️ Tech Stack
+
+Typescript, React, Nextjs, Zustand
+
+### 🔧 Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔐 Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file in the root directory with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+GOOGLE_API_KEY=your_google_api_key
+```
 
-## Learn More
+Make sure your key has access to the Gemini API.
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Sample Topics to Try
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 🏀 Lakers Trivia
+- 🧙 Harry Potter
+- 🏜️ Dune (Book 1)
+- 🐉 Game of Thrones
+- 🎓 UCLA
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧠 Behind the Scenes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+QuizAI uses Gemini's language modeling capabilities to semantically interpret your topic and generate well-structured quiz questions.

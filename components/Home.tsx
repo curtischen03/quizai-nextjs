@@ -38,10 +38,16 @@ const Home = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await generateQuiz(topic, numQuestions);
+      const result = await generateQuiz(topic, numQuestions);
+      if (result && "secondsLeft" in result) {
+        alert(
+          `Rate limit: Please wait ${result.secondsLeft} seconds before trying again.`,
+        );
+        return;
+      }
       router.push("/quiz");
     } catch (err: any) {
-      alert(err.message);
+      console.log(err);
     } finally {
       setIsLoading(false);
     }

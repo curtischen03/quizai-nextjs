@@ -18,13 +18,13 @@ export interface QuizQuestion {
 export async function generateQuizQuestions(
   topic: string,
   numQuestions: number,
-): Promise<QuizQuestion[]> {
+): Promise<QuizQuestion[] | { secondsLeft: number }> {
   try {
     const now = Date.now();
     const timeSinceLast = now - lastRequestTime;
     if (timeSinceLast < COOLDOWN_MS) {
       const secondsLeft = Math.ceil((COOLDOWN_MS - timeSinceLast) / 1000);
-      throw new Error(`Rate limit: Please wait ${secondsLeft} seconds.`);
+      return { secondsLeft: secondsLeft };
     }
     lastRequestTime = now;
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });

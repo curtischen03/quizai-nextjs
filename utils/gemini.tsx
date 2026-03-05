@@ -1,15 +1,35 @@
 "use server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { headers } from "next/headers";
+import { createHash } from "crypto";
+
 const apiKey = process.env.GOOGLE_API_KEY;
 
 if (!apiKey) {
   throw new Error("Missing GOOGLE_API_KEY in environment variables");
 }
-let lastRequestTime = 0;
+const ipCache = new Map<string, number>();
 const COOLDOWN_MS = 60000 * 5; // 1 minute in milliseconds x 5
 
-const genAI = new GoogleGenerativeAI(apiKey);
+const rateLimit = async (): Promise<{ secondsLeft: number } | null> => {
+  const headerList = await headers();
+  const rawIp = headerList.get("x-forwarded-for") || "anonymous";
+  const salt = process.env.IP_SALT || "default-secret-salt";
+  const hashedIp = createHash("sha256")
+    .update(rawIp + salt)
+    .digest("hex");
+  const now = Date.now();
+  const lastRequestTime = ipCache.get(hashedIp) || 0;
+  const timeSinceLast = now - lastRequestTime;
+  if (timeSinceLast < COOLDOWN_MS) {
+    const secondsLeft = Math.ceil((COOLDOWN_MS - timeSinceLast) / 1000);
+    return { secondsLeft: secondsLeft };
+  }
+  ipCache.set(hashedIp, now);
+  return null;
+};
 
+const genAI = new GoogleGenerativeAI(apiKey);
 export interface QuizQuestion {
   question: string;
   options: string[];
@@ -20,15 +40,11 @@ export async function generateQuizQuestions(
   numQuestions: number,
 ): Promise<QuizQuestion[] | { secondsLeft: number }> {
   try {
-    const now = Date.now();
-    const timeSinceLast = now - lastRequestTime;
-    if (timeSinceLast < COOLDOWN_MS) {
-      const secondsLeft = Math.ceil((COOLDOWN_MS - timeSinceLast) / 1000);
-      return { secondsLeft: secondsLeft };
+    const rateLimitResult = await rateLimit();
+    if (rateLimitResult) {
+      return rateLimitResult;
     }
-    lastRequestTime = now;
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const prompt = `Generate ${numQuestions} multiple-choice quiz questions about ${topic}. 
     For each question, provide:
     1. The question text

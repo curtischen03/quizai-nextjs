@@ -9,10 +9,12 @@
 - **AI-Powered Quiz Generation**: Uses Google Gemini to generate unique, context-aware questions based on any topic.
 - **Detailed Results Analysis**: Visual breakdown of scores and correct/incorrect answers.
 - **Fully Responsive Design**: Built with Bootstrap for optimal performance across devices.
+- **Share with Others**: Take quizzes created by other people
+- **End to End App**: React Frontend and Supabase Backend
 
 ## Tech Stack
 
-Typescript, React, Nextjs, Zustand
+Typescript, React, Nextjs, Supabase, Postgres, Zustand
 
 ### Setup
 
@@ -28,6 +30,8 @@ Create a `.env` file in the root directory with:
 ```env
 GOOGLE_API_KEY=your_google_api_key
 IP_SALT=your_ip_salt
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
 ```
 
 Make sure your key has access to the Gemini API.

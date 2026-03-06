@@ -31,8 +31,8 @@ Create a `.env` file in the root directory with:
 ```env
 GOOGLE_API_KEY=your_google_api_key
 IP_SALT=your_ip_salt
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_key
 ```
 
 Make sure your key has access to the Gemini API.

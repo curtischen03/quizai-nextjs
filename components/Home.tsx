@@ -9,21 +9,27 @@ import { Result } from "./QuizPage";
 interface QuizState {
   questions: QuizQuestion[];
   topic: string;
+  quizId: string;
   results: Result[];
   score: number;
   total: number;
-  setQuizData: (questions: QuizQuestion[], topic: string) => void;
+  setQuizData: (
+    questions: QuizQuestion[],
+    topic: string,
+    quizId: string,
+  ) => void;
   setQuizDataResults: (results: Result[], score: number, total: number) => void;
 }
 
 export const useQuizStore = create<QuizState>((set) => ({
   questions: [],
   topic: "",
+  quizId: "",
   results: [],
   score: 0,
   total: 0,
-  setQuizData: (questions: QuizQuestion[], topic: string) =>
-    set({ questions, topic }),
+  setQuizData: (questions: QuizQuestion[], topic: string, quizId: string) =>
+    set({ questions, topic, quizId }),
   setQuizDataResults: (results: Result[], score: number, total: number) =>
     set({ results, score, total }),
 }));
@@ -39,13 +45,13 @@ const Home = () => {
     setIsLoading(true);
     try {
       const result = await generateQuiz(topic, numQuestions);
-      if (result && "secondsLeft" in result) {
+      if (typeof result !== "string" && "secondsLeft" in result) {
         alert(
           `Rate limit: Please wait ${result.secondsLeft} seconds before trying again.`,
         );
         return;
       }
-      router.push("/quiz");
+      router.push(`/quiz/${result}`);
     } catch (err: any) {
       console.log(err);
     } finally {

@@ -1,18 +1,32 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useQuizStore } from "./Home";
+import React, { useState } from "react";
 
 const ResultsPage = () => {
   const router = useRouter();
+  const [copied, setCopied] = useState(false);
   const results = useQuizStore((state) => state.results) || [];
   const score = useQuizStore((state) => state.score) || 0;
   const total = useQuizStore((state) => state.total) || 0;
+  const quizId = useQuizStore((state) => state.quizId) || "";
   if (!results.length) {
     router.push("/");
     return null;
   }
 
   const percentage = Math.round((score / total) * 100);
+
+  const handleShare = async () => {
+    const shareUrl = `${window.location.origin}/quiz/${quizId}`;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
 
   return (
     <div className="container mt-5">
@@ -31,6 +45,14 @@ const ResultsPage = () => {
               >
                 Start New Quiz
               </button>
+              {quizId && (
+                <button
+                  className={`btn ${copied ? "btn-success" : "btn-outline-secondary"}`}
+                  onClick={handleShare}
+                >
+                  {copied ? "Copied Link" : "Share Quiz"}
+                </button>
+              )}
             </div>
           </div>
 

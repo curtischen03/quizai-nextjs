@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="navbar navbar-dark bg-primary p-3">
-      <div className="container-fluid d-flex justify-content-start">
+      <div className="container-fluid d-flex justify-content-center">
         <Link href="/" className="navbar-brand fw-bold me-4">
           QuizAI
         </Link>

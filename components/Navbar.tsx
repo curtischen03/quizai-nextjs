@@ -1,36 +1,26 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
-      <div className="container-fluid">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsExample08"
-          aria-controls="navbarsExample08"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    <nav className="navbar navbar-dark bg-primary p-3">
+      <div className="container-fluid d-flex justify-content-start">
+        <Link href="/" className="navbar-brand fw-bold me-4">
+          QuizAI
+        </Link>
 
-        <div
-          className="collapse navbar-collapse justify-content-md-center"
-          id="navbarsExample08"
-        >
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a
-                className="nav-link active"
-                style={{ fontSize: "18px" }}
-                aria-current="page"
-                href="/"
-              >
-                QuizAI
-              </a>
-            </li>
-          </ul>
-        </div>
+        {/* Simple Horizontal List */}
+        <ul className="nav">
+          <li className="nav-item">
+            <Link href="/" className="nav-link text-white">
+              Create Quiz
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/quiz" className="nav-link text-white">
+              All Quizzes
+            </Link>
+          </li>
+        </ul>
       </div>
     </nav>
   );

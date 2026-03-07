@@ -29,7 +29,7 @@ const ResultsPage = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 mb-5 pb-5">
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card mb-4">
@@ -82,9 +82,6 @@ const ResultsPage = () => {
           </div>
         </div>
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
     </div>
   );
 };

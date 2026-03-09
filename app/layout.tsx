@@ -33,9 +33,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>QuizAI</title>
       </head>
-      <body>
+      <body className="d-flex flex-column min-vh-100">
         <Navbar />
-        {children}
+        <div className="flex-grow-1">{children}</div>
         <Footer />
       </body>
     </html>
